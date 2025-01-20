@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://cyjfschl4mct1"]
+
+[ext_resource type="Script" path="res://loader.gd" id="1_5hyih"]
+[ext_resource type="ArrayMesh" uid="uid://sxjjkm5gl5ve" path="res://meshes/crate.obj" id="2_13oao"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="2_hy2wb"]
+[ext_resource type="Texture2D" uid="uid://c2lkgflpqmb4r" path="res://meshes/Tileable_Bricks_01_Diffuse.png" id="3_q7163"]
+[ext_resource type="Texture2D" uid="uid://s5ygy3b4aytt" path="res://meshes/Tileable_Bricks_01_Normal.png" id="4_vciu8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yonje"]
+albedo_texture = ExtResource("3_q7163")
+normal_enabled = true
+normal_texture = ExtResource("4_vciu8")
+
+[sub_resource type="BoxMesh" id="BoxMesh_diwhr"]
+material = SubResource("StandardMaterial3D_yonje")
+
+[sub_resource type="Environment" id="Environment_wwnkm"]
+background_mode = 1
+background_color = Color(0.933333, 0.835294, 0.686275, 1)
+ambient_light_energy = 2.27
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_yabca"]
+
+[node name="Scene" type="Node3D"]
+script = ExtResource("1_5hyih")
+crate_mesh = ExtResource("2_13oao")
+wall_mesh = SubResource("BoxMesh_diwhr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965925, 0, -0.965925, 0.258819, 0, 8, 3)
+script = ExtResource("2_hy2wb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.12828, -0.85772, 0.497856, 0.097946, 0.510507, 0.854277, -0.98689, -0.0608233, 0.149498, 24.8919, 19.7047, 3.90215)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wwnkm")
+camera_attributes = SubResource("CameraAttributesPhysical_yabca")
