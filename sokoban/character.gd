@@ -3,7 +3,16 @@ extends CharacterBody3D
 @export var speed: float
 @export var push_force: float
 
+func largest_absolute_element_vector(vec: Vector3) -> Vector3:
+	var abs_vec = Vector3(abs(vec.x), abs(vec.y), abs(vec.z))
+	var max_value = max(abs_vec.x, abs_vec.y, abs_vec.z)
 
+	if abs_vec.x == max_value:
+		return Vector3(vec.x, 0, 0)
+	elif abs_vec.y == max_value:
+		return Vector3(0, vec.y, 0)
+	else:
+		return Vector3(0, 0, vec.z)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,14 +47,12 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		if collision.get_collider().is_class("RigidBody3D"):
 			var rigidbody = collision.get_collider() as RigidBody3D
-			
-			# Calculate push direction only on the horizontal plane (lateral motion)
-			var push_direction = collision.get_normal() * -1.0  # Invert normal to get the direction of impact
-			push_direction.y = 0  # Remove any vertical component
-			push_direction = push_direction.normalized()  # Normalize to keep consistent force
-
-			# Apply lateral force by directly modifying the linear velocity		 
-			var lateral_velocity = push_direction * push_force
-			rigidbody.linear_velocity += lateral_velocity
+			# Calculate the direction from player to rigidbody
+			var push_direction = (rigidbody.get_global_transform().origin - global_transform.origin).normalized()
+			#push_direction = largest_absolute_element_vector(push_direction)
+			push_direction = largest_absolute_element_vector(-collision.get_normal())
+			var impulse = push_direction * push_force
+			# Apply the impulse
+			rigidbody.linear_velocity += impulse
 			
 		print(Time.get_ticks_msec(), " collision ", collision.get_collider().get_name(), " " + name)
