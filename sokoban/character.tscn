@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb1avlpgvqcuh"]
+
+[ext_resource type="Script" path="res://character.gd" id="1_gq0ba"]
+[ext_resource type="Texture2D" uid="uid://c02f4wq8s1oro" path="res://meshes/armor_default_color.png" id="2_ttdr6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oqh5m"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwt4j"]
+albedo_texture = ExtResource("2_ttdr6")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eyg8f"]
+material = SubResource("StandardMaterial3D_kwt4j")
+radius = 0.25
+height = 1.0
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_gq0ba")
+speed = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("CapsuleShape3D_oqh5m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("CapsuleMesh_eyg8f")

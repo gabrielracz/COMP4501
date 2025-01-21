@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://bowtxmyysyuvx"]
+
+[ext_resource type="Texture2D" uid="uid://buvbsigbww20y" path="res://meshes/Tileable_Bricks_01_Diffuse.png" id="1_v65ly"]
+[ext_resource type="Texture2D" uid="uid://bu0syr0ib41c" path="res://meshes/Tileable_Bricks_01_Normal.png" id="2_g522c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqo17"]
+albedo_texture = ExtResource("1_v65ly")
+normal_enabled = true
+normal_scale = 6.03
+normal_texture = ExtResource("2_g522c")
+
+[sub_resource type="BoxMesh" id="BoxMesh_snutc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3p61f"]
+
+[node name="Wall" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_bqo17")
+mesh = SubResource("BoxMesh_snutc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_3p61f")

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://4pjq1dj6vqrc"
+path="res://.godot/imported/struct_floor_grate_square.obj-a1531523baf127d3df41933b25eb63cb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/struct_floor_grate_square.obj-a1531523baf127d3df41933b25eb63cb.mesh"]
+
+source_file="res://meshes/struct_floor_grate_square.obj"
+dest_files=["res://.godot/imported/struct_floor_grate_square.obj-a1531523baf127d3df41933b25eb63cb.mesh", "res://.godot/imported/struct_floor_grate_square.obj-a1531523baf127d3df41933b25eb63cb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

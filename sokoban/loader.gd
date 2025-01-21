@@ -17,6 +17,9 @@ class LevelPlan:
 @export var wall_mesh: Mesh
 @export var player_mesh: Mesh
 
+@export var character_scene: PackedScene
+@export var wall_scene: PackedScene
+
 var tile_map: Dictionary = {}
 
 const number_key_map = {
@@ -88,22 +91,40 @@ func _init_meshes():
 	# tile_map["X"] = crateInstance
 
 func _build_levels():
+	var levelNum = -1
 	for levelPlan in levelPlans:
+		levelNum += 1
 		var root_node = Node3D.new();
 		root_node.visible = false
 		add_child(root_node)
 		for tileDesc in levelPlan.tiles:
 			if not tile_map.has(tileDesc[TILE_TYPE]):
 				continue
+			var tile
 
-			var tile = MeshInstance3D.new()
-			tile.mesh = tile_map[tileDesc[TILE_TYPE]]
-			tile.global_transform.origin = Vector3(
+			match tileDesc[TILE_TYPE]:
+				"S":
+					tile = character_scene.instantiate()
+					tile.collision_layer = 2**levelNum
+					tile.collision_mask = 2**levelNum
+				"W":
+					tile = wall_scene.instantiate()
+					tile.collision_layer = 2**levelNum
+					tile.collision_mask = 2**levelNum
+				_:
+					tile = MeshInstance3D.new()
+					tile.mesh = tile_map[tileDesc[TILE_TYPE]]
+					
+				
+			tile.visible = true
+			tile.global_translate(Vector3(
 				float(tileDesc[TILE_COL]) - levelPlan.width/2.0,
 				0,
 				float(tileDesc[TILE_ROW]) - levelPlan.height/2.0
-			)
+			))
 			root_node.add_child(tile)
+			
+		# Create floor
 		var floorTile = MeshInstance3D.new()
 		var floorPlane = PlaneMesh.new()
 		floorPlane.size = Vector2(levelPlan.width, levelPlan.height)
@@ -111,12 +132,27 @@ func _build_levels():
 		floorTile.mesh = floorPlane
 		root_node.add_child(floorTile)
 		levels.append(root_node)
+		
+func set_root_activity(root_node: Node, active: bool) -> void:
+	root_node.set_process(active)
+	root_node.set_physics_process(active)
+	root_node.set_process_input(active)  # Enable/disable input processing
+
+	# Optionally toggle visibility
+	#if root_node is CanvasItem:
+	root_node.visible = active
+
+	# Recursively apply to all children
+	for child in root_node.get_children():
+		set_root_activity(child, active)
 
 func _change_active_level(newActiveLevel):
 	if(newActiveLevel >= len(levels)):
 		return
-	levels[levelIndex].visible = false
-	levels[newActiveLevel].visible = true
+	set_root_activity(levels[levelIndex], false)
+	set_root_activity(levels[newActiveLevel], true)
+	#levels[levelIndex].visible = false
+	#levels[newActiveLevel].visible = true
 	levelIndex = newActiveLevel
 
 # Called when the node enters the scene tree for the first time.
