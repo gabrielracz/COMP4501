@@ -19,6 +19,7 @@ class LevelPlan:
 
 @export var character_scene: PackedScene
 @export var wall_scene: PackedScene
+@export var crate_scene: PackedScene
 
 var tile_map: Dictionary = {}
 
@@ -105,10 +106,15 @@ func _build_levels():
 			match tileDesc[TILE_TYPE]:
 				"S":
 					tile = character_scene.instantiate()
+					tile.name = "player " + str(levelNum)
 					tile.collision_layer = 2**levelNum
 					tile.collision_mask = 2**levelNum
 				"W":
 					tile = wall_scene.instantiate()
+					tile.collision_layer = 2**levelNum
+					tile.collision_mask = 2**levelNum
+				"X":
+					tile = crate_scene.instantiate()
 					tile.collision_layer = 2**levelNum
 					tile.collision_mask = 2**levelNum
 				_:
@@ -149,7 +155,10 @@ func set_root_activity(root_node: Node, active: bool) -> void:
 func _change_active_level(newActiveLevel):
 	if(newActiveLevel >= len(levels)):
 		return
-	set_root_activity(levels[levelIndex], false)
+	
+	for i in range(len(levels)):
+		set_root_activity(levels[i], false)
+		
 	set_root_activity(levels[newActiveLevel], true)
 	#levels[levelIndex].visible = false
 	#levels[newActiveLevel].visible = true

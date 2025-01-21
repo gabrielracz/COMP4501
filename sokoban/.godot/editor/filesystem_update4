@@ -1,5 +1,7 @@
 res://scene.tscn
-res://character.gd
 res://character.tscn
-res://loader.gd
 res://wall.tscn
+res://character.gd
+res://loader.gd
+res://crate.tscn
+res://crate.gd

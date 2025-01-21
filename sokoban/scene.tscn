@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cyjfschl4mct1"]
+[gd_scene load_steps=13 format=3 uid="uid://cyjfschl4mct1"]
 
 [ext_resource type="Script" path="res://loader.gd" id="1_5hyih"]
 [ext_resource type="ArrayMesh" uid="uid://d1ghvagh8l8nj" path="res://meshes/crate.obj" id="2_13oao"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bu0syr0ib41c" path="res://meshes/Tileable_Bricks_01_Normal.png" id="4_vciu8"]
 [ext_resource type="PackedScene" uid="uid://cb1avlpgvqcuh" path="res://character.tscn" id="5_mbxkg"]
 [ext_resource type="PackedScene" uid="uid://bowtxmyysyuvx" path="res://wall.tscn" id="7_re835"]
+[ext_resource type="PackedScene" uid="uid://5r1i4aoe4gtp" path="res://crate.tscn" id="8_eakl5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yonje"]
 albedo_texture = ExtResource("3_q7163")
@@ -29,6 +30,7 @@ crate_mesh = ExtResource("2_13oao")
 wall_mesh = SubResource("BoxMesh_diwhr")
 character_scene = ExtResource("5_mbxkg")
 wall_scene = ExtResource("7_re835")
+crate_scene = ExtResource("8_eakl5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965925, 0, -0.965925, 0.258819, 0, 8, 3)
@@ -44,6 +46,15 @@ camera_attributes = SubResource("CameraAttributesPhysical_yabca")
 
 [node name="Character" parent="." instance=ExtResource("5_mbxkg")]
 visible = false
+collision_layer = 0
+collision_mask = 0
 
 [node name="Wall" parent="." instance=ExtResource("7_re835")]
 visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="Crate" parent="." instance=ExtResource("8_eakl5")]
+visible = false
+collision_layer = 0
+collision_mask = 0

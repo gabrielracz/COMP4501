@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://5r1i4aoe4gtp"]
+
+[ext_resource type="ArrayMesh" uid="uid://d1ghvagh8l8nj" path="res://meshes/crate.obj" id="1_0hio7"]
+[ext_resource type="Script" path="res://crate.gd" id="1_dm8yd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kublu"]
+
+[node name="Crate" type="RigidBody3D"]
+gravity_scale = 0.0
+linear_damp = 5.0
+script = ExtResource("1_dm8yd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+shape = SubResource("BoxShape3D_kublu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_0hio7")
