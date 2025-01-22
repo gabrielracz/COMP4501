@@ -7,3 +7,5 @@ res://loader.gd
 res://grate.gd
 res://level_manager.tscn
 res://level_manager.gd
+res://crate.gd
+res://character.gd

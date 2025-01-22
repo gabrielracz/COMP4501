@@ -13,6 +13,7 @@ uv1_scale = Vector3(0.9, 0.9, 0.9)
 [sub_resource type="BoxMesh" id="BoxMesh_snutc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3p61f"]
+size = Vector3(0.9, 0.9, 0.9)
 
 [node name="Wall" type="StaticBody3D"]
 
@@ -21,5 +22,4 @@ material_override = SubResource("StandardMaterial3D_bqo17")
 mesh = SubResource("BoxMesh_snutc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 shape = SubResource("BoxShape3D_3p61f")

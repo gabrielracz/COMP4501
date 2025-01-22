@@ -14,9 +14,9 @@ func _ready() -> void:
 func _on_body_entered(body: Node3D):
 	pass
 	#print(body.get_class())
-	if body is RigidBody3D:
-		freeze = true
-		body.freeze = true
+	#if body is RigidBody3D:
+		#freeze = true
+		#body.freeze = true
 		
 func _on_body_exited(body: Node3D):
 	pass
@@ -28,9 +28,25 @@ func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	#if get_contact_count() == 0:
-		#freeze = true
-		#return
+	var space_state = get_world_3d().direct_space_state
+	
+	# Set up the ray query parameters
+	if(linear_velocity.length() > 0.01):
+		var ray_query = PhysicsRayQueryParameters3D.new()
+		ray_query.from = global_position
+		ray_query.to = global_position + linear_velocity.normalized() * 0.55
+		ray_query.collision_mask = collision_mask  # Adjust this to the collision layer you want to test
+		
+		# Perform the raycast
+		var result = space_state.intersect_ray(ray_query)
+		if result:
+			if result["collider"].is_class("RigidBody3D"):
+				freeze = true
+				linear_velocity = Vector3.ZERO
+				print("frozen")
+				#linear_velocity = Vector3.ZERO
+				return
+	freeze = false
 	global_transform = Transform3D(
 	original_transform.basis,  # Keep the original rotation
 	global_transform.origin    # Allow position to change

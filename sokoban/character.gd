@@ -57,20 +57,20 @@ func _physics_process(delta: float) -> void:
 			# Apply the impulse
 			#rigidbody.linear_velocity += impulse
 			
-			var space_state = get_world_3d().direct_space_state
-			
-			# Set up the ray query parameters
-			var ray_query = PhysicsRayQueryParameters3D.new()
-			ray_query.from = collision.get_collider().get_transform().origin
-			ray_query.to = ray_query.from + push_direction.normalized() * 0.54
-			ray_query.collision_mask = rigidbody.collision_mask  # Adjust this to the collision layer you want to test
-			
-			# Perform the raycast
-			var result = space_state.intersect_ray(ray_query)
-			if result:
-				if result["collider"].is_class("RigidBody3D"):
-					rigidbody.freeze = true
-					return
+			#var space_state = get_world_3d().direct_space_state
+			#
+			## Set up the ray query parameters
+			#var ray_query = PhysicsRayQueryParameters3D.new()
+			#ray_query.from = collision.get_collider().get_transform().origin
+			#ray_query.to = ray_query.from + push_direction.normalized() * 0.54
+			#ray_query.collision_mask = rigidbody.collision_mask  # Adjust this to the collision layer you want to test
+			#
+			## Perform the raycast
+			#var result = space_state.intersect_ray(ray_query)
+			#if result:
+				#if result["collider"].is_class("RigidBody3D"):
+					#rigidbody.freeze = true
+					#return
 			
 			rigidbody.freeze = false
 			rigidbody.apply_force(impulse * 100)
