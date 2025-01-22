@@ -45,14 +45,34 @@ func _physics_process(delta: float) -> void:
 	#move_and_slide()
 	var collision: KinematicCollision3D = move_and_collide(velocity * delta)
 	if collision:
+		velocity = velocity.slide(collision.get_normal())
 		if collision.get_collider().is_class("RigidBody3D"):
 			var rigidbody = collision.get_collider() as RigidBody3D
 			# Calculate the direction from player to rigidbody
 			var push_direction = (rigidbody.get_global_transform().origin - global_transform.origin).normalized()
+			var d = push_direction.dot(collision.get_normal())
 			#push_direction = largest_absolute_element_vector(push_direction)
 			push_direction = largest_absolute_element_vector(-collision.get_normal())
 			var impulse = push_direction * push_force
 			# Apply the impulse
-			rigidbody.linear_velocity += impulse
+			#rigidbody.linear_velocity += impulse
 			
-		print(Time.get_ticks_msec(), " collision ", collision.get_collider().get_name(), " " + name)
+			var space_state = get_world_3d().direct_space_state
+			
+			# Set up the ray query parameters
+			var ray_query = PhysicsRayQueryParameters3D.new()
+			ray_query.from = collision.get_collider().get_transform().origin
+			ray_query.to = ray_query.from + push_direction.normalized() * 0.54
+			ray_query.collision_mask = rigidbody.collision_mask  # Adjust this to the collision layer you want to test
+			
+			# Perform the raycast
+			var result = space_state.intersect_ray(ray_query)
+			if result:
+				if result["collider"].is_class("RigidBody3D"):
+					rigidbody.freeze = true
+					return
+			
+			rigidbody.freeze = false
+			rigidbody.apply_force(impulse * 100)
+			
+		#print(Time.get_ticks_msec(), " collision ", collision.get_collider().get_name(), " " + name)

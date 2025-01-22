@@ -3,9 +3,8 @@
 [ext_resource type="Script" path="res://character.gd" id="1_gq0ba"]
 [ext_resource type="Texture2D" uid="uid://c02f4wq8s1oro" path="res://meshes/armor_default_color.png" id="2_ttdr6"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oqh5m"]
-radius = 0.25
-height = 1.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_81xmx"]
+size = Vector3(0.4, 1, 0.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwt4j"]
 albedo_texture = ExtResource("2_ttdr6")
@@ -22,7 +21,7 @@ push_force = 0.1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("CapsuleShape3D_oqh5m")
+shape = SubResource("BoxShape3D_81xmx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)

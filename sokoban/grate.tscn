@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://qtmsjxlelmny"]
+
+[ext_resource type="Script" path="res://grate.gd" id="1_ix0ug"]
+[ext_resource type="ArrayMesh" uid="uid://neaycgj53k3y" path="res://meshes/grate.obj" id="1_jnr4g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06rsk"]
+
+[node name="Grate" type="Area3D"]
+script = ExtResource("1_ix0ug")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_jnr4g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_06rsk")

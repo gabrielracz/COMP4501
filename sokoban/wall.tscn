@@ -8,6 +8,7 @@ albedo_texture = ExtResource("1_v65ly")
 normal_enabled = true
 normal_scale = 6.03
 normal_texture = ExtResource("2_g522c")
+uv1_scale = Vector3(0.9, 0.9, 0.9)
 
 [sub_resource type="BoxMesh" id="BoxMesh_snutc"]
 
@@ -20,4 +21,5 @@ material_override = SubResource("StandardMaterial3D_bqo17")
 mesh = SubResource("BoxMesh_snutc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 shape = SubResource("BoxShape3D_3p61f")

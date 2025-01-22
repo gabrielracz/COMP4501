@@ -1,7 +1,9 @@
 res://scene.tscn
 res://character.tscn
 res://wall.tscn
-res://character.gd
-res://loader.gd
 res://crate.tscn
-res://crate.gd
+res://grate.tscn
+res://loader.gd
+res://grate.gd
+res://level_manager.tscn
+res://level_manager.gd

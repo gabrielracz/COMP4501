@@ -13,13 +13,11 @@ class LevelPlan:
 	var height: int 		= 0
 	var tiles: Array[Array] = [];
 
-@export var crate_mesh: Mesh
-@export var wall_mesh: Mesh
-@export var player_mesh: Mesh
-
+@export var level_manager_scene: PackedScene
 @export var character_scene: PackedScene
 @export var wall_scene: PackedScene
 @export var crate_scene: PackedScene
+@export var grate_scene: PackedScene
 
 var tile_map: Dictionary = {}
 
@@ -34,7 +32,6 @@ const number_key_map = {
 	Key.KEY_8: 7,
 	Key.KEY_9: 8
 }
-
 
 var levels: Array[Node] = []
 var levelPlans: Array[LevelPlan] = []
@@ -77,50 +74,37 @@ func _load_levels():
 				levelPlans.append(level)
 	levelPlans.reverse()
 
-func _init_meshes():
-	tile_map = {
-		"W": wall_mesh,
-		# "o": SphereMesh.new(),
-		"o": ResourceLoader.load("res://meshes/grate.obj"),
-		"S": CapsuleMesh.new(),
-		"X": crate_mesh,
-	}
-
-	# var crateMesh = ResourceLoader.load("res://meshes/prop_floor_crate.obj")
-	# var crateInstance = MeshInstance3D.new()
-	# crateInstance.mesh = 
-	# tile_map["X"] = crateInstance
-
 func _build_levels():
 	var levelNum = -1
 	for levelPlan in levelPlans:
 		levelNum += 1
-		var root_node = Node3D.new();
-		root_node.visible = false
-		add_child(root_node)
+		var levelRootNode = level_manager_scene.instantiate()
+		levelRootNode.name = "LevelMan" + str(levelNum)
+		levelRootNode.visible = false
+		add_child(levelRootNode)
 		for tileDesc in levelPlan.tiles:
-			if not tile_map.has(tileDesc[TILE_TYPE]):
-				continue
 			var tile
-
+			var colVal = 2**levelNum
 			match tileDesc[TILE_TYPE]:
 				"S":
 					tile = character_scene.instantiate()
 					tile.name = "player " + str(levelNum)
-					tile.collision_layer = 2**levelNum
-					tile.collision_mask = 2**levelNum
+					tile.collision_layer = colVal
+					tile.collision_mask = colVal
 				"W":
 					tile = wall_scene.instantiate()
-					tile.collision_layer = 2**levelNum
-					tile.collision_mask = 2**levelNum
+					tile.collision_layer = colVal
+					tile.collision_mask = colVal
 				"X":
 					tile = crate_scene.instantiate()
-					tile.collision_layer = 2**levelNum
-					tile.collision_mask = 2**levelNum
+					tile.collision_layer = colVal
+					tile.collision_mask = colVal
+				"o":
+					tile = grate_scene.instantiate()
+					tile.collision_layer = colVal
+					tile.collision_mask = colVal
 				_:
-					tile = MeshInstance3D.new()
-					tile.mesh = tile_map[tileDesc[TILE_TYPE]]
-					
+					continue
 				
 			tile.visible = true
 			tile.global_translate(Vector3(
@@ -128,7 +112,7 @@ func _build_levels():
 				0,
 				float(tileDesc[TILE_ROW]) - levelPlan.height/2.0
 			))
-			root_node.add_child(tile)
+			levelRootNode.add_child(tile)
 			
 		# Create floor
 		var floorTile = MeshInstance3D.new()
@@ -136,8 +120,8 @@ func _build_levels():
 		floorPlane.size = Vector2(levelPlan.width, levelPlan.height)
 		floorPlane.center_offset = Vector3(-0.5, -0.5, -0.5)
 		floorTile.mesh = floorPlane
-		root_node.add_child(floorTile)
-		levels.append(root_node)
+		levelRootNode.add_child(floorTile)
+		levels.append(levelRootNode)
 		
 func set_root_activity(root_node: Node, active: bool) -> void:
 	root_node.set_process(active)
@@ -167,7 +151,6 @@ func _change_active_level(newActiveLevel):
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_load_levels()
-	_init_meshes()
 	_build_levels()
 	_change_active_level(0)
 	pass # Replace with function body.

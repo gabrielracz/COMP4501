@@ -1,21 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cyjfschl4mct1"]
+[gd_scene load_steps=10 format=3 uid="uid://cyjfschl4mct1"]
 
 [ext_resource type="Script" path="res://loader.gd" id="1_5hyih"]
-[ext_resource type="ArrayMesh" uid="uid://d1ghvagh8l8nj" path="res://meshes/crate.obj" id="2_13oao"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="2_hy2wb"]
-[ext_resource type="Texture2D" uid="uid://buvbsigbww20y" path="res://meshes/Tileable_Bricks_01_Diffuse.png" id="3_q7163"]
-[ext_resource type="Texture2D" uid="uid://bu0syr0ib41c" path="res://meshes/Tileable_Bricks_01_Normal.png" id="4_vciu8"]
 [ext_resource type="PackedScene" uid="uid://cb1avlpgvqcuh" path="res://character.tscn" id="5_mbxkg"]
 [ext_resource type="PackedScene" uid="uid://bowtxmyysyuvx" path="res://wall.tscn" id="7_re835"]
 [ext_resource type="PackedScene" uid="uid://5r1i4aoe4gtp" path="res://crate.tscn" id="8_eakl5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yonje"]
-albedo_texture = ExtResource("3_q7163")
-normal_enabled = true
-normal_texture = ExtResource("4_vciu8")
-
-[sub_resource type="BoxMesh" id="BoxMesh_diwhr"]
-material = SubResource("StandardMaterial3D_yonje")
+[ext_resource type="PackedScene" uid="uid://qtmsjxlelmny" path="res://grate.tscn" id="9_cv608"]
+[ext_resource type="PackedScene" uid="uid://dgpfemobxegyc" path="res://level_manager.tscn" id="10_1rabe"]
 
 [sub_resource type="Environment" id="Environment_wwnkm"]
 background_mode = 1
@@ -26,11 +17,11 @@ ambient_light_energy = 2.27
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_5hyih")
-crate_mesh = ExtResource("2_13oao")
-wall_mesh = SubResource("BoxMesh_diwhr")
+level_manager_scene = ExtResource("10_1rabe")
 character_scene = ExtResource("5_mbxkg")
 wall_scene = ExtResource("7_re835")
 crate_scene = ExtResource("8_eakl5")
+grate_scene = ExtResource("9_cv608")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965925, 0, -0.965925, 0.258819, 0, 8, 3)
@@ -58,3 +49,9 @@ collision_mask = 0
 visible = false
 collision_layer = 0
 collision_mask = 0
+
+[node name="Grate" parent="." instance=ExtResource("9_cv608")]
+visible = false
+
+[node name="LevelManager" parent="." instance=ExtResource("10_1rabe")]
+visible = false
