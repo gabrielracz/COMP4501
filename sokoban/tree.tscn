@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqu3sol1wa1ax"]
+
+[ext_resource type="Texture2D" uid="uid://bpehqqdmdh8r7" path="res://meshes/hedge_ivy.png" id="1_88cfn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfkho"]
+albedo_texture = ExtResource("1_88cfn")
+uv1_scale = Vector3(1, 0.5, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_l3ll0"]
+material = SubResource("StandardMaterial3D_jfkho")
+
+[node name="Tree" type="MeshInstance3D"]
+mesh = SubResource("PrismMesh_l3ll0")

@@ -18,6 +18,7 @@ class LevelPlan:
 @export var wall_scene: PackedScene
 @export var crate_scene: PackedScene
 @export var grate_scene: PackedScene
+@export var tree_scene: PackedScene
 
 var tile_map: Dictionary = {}
 
@@ -58,7 +59,7 @@ func _read_level_file(filename: String) -> LevelPlan:
 			result.tiles.append([tile, row, col])
 			col += 1
 		row += 1
-	result.height = row
+	result.height = row - 1
 	levelFile.close()
 	return result
 
@@ -100,6 +101,8 @@ func _build_level(levelNum: int):
 				tile = grate_scene.instantiate()
 				tile.collision_layer = colVal
 				tile.collision_mask = colVal
+			"+":
+				tile = tree_scene.instantiate()
 			_:
 				continue
 
@@ -115,6 +118,7 @@ func _build_level(levelNum: int):
 	var floorTile = MeshInstance3D.new()
 	var floorPlane = PlaneMesh.new()
 	floorPlane.size = Vector2(levelPlan.width, levelPlan.height)
+	print(floorPlane.size)
 	floorPlane.center_offset = Vector3(-0.5, -0.5, -0.5)
 	floorTile.mesh = floorPlane
 	levelRootNode.add_child(floorTile)

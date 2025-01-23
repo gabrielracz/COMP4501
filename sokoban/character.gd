@@ -58,7 +58,6 @@ func _physics_process(delta: float) -> void:
 			#rigidbody.linear_velocity += impulse
 			
 			#var space_state = get_world_3d().direct_space_state
-			#
 			## Set up the ray query parameters
 			#var ray_query = PhysicsRayQueryParameters3D.new()
 			#ray_query.from = collision.get_collider().get_transform().origin
@@ -69,7 +68,7 @@ func _physics_process(delta: float) -> void:
 			#var result = space_state.intersect_ray(ray_query)
 			#if result:
 				#if result["collider"].is_class("RigidBody3D"):
-					#rigidbody.freeze = true
+					#rigidbody.linear_velocity = Vector3.ZERO
 					#return
 			
 			rigidbody.freeze = false

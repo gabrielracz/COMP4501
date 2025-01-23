@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://5r1i4aoe4gtp"]
 
-[ext_resource type="ArrayMesh" uid="uid://d1ghvagh8l8nj" path="res://meshes/crate.obj" id="1_0hio7"]
+[ext_resource type="ArrayMesh" uid="uid://ok221q2wgd42" path="res://meshes/crate.obj" id="1_0hio7"]
 [ext_resource type="Script" path="res://crate.gd" id="1_dm8yd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n8jsh"]

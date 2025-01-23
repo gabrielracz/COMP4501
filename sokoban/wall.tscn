@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bowtxmyysyuvx"]
 
-[ext_resource type="Texture2D" uid="uid://buvbsigbww20y" path="res://meshes/Tileable_Bricks_01_Diffuse.png" id="1_v65ly"]
-[ext_resource type="Texture2D" uid="uid://bu0syr0ib41c" path="res://meshes/Tileable_Bricks_01_Normal.png" id="2_g522c"]
+[ext_resource type="Texture2D" uid="uid://bthjrtd74bpqc" path="res://meshes/Tileable_Bricks_01_Diffuse.png" id="1_v65ly"]
+[ext_resource type="Texture2D" uid="uid://b28cqymml2beo" path="res://meshes/Tileable_Bricks_01_Normal.png" id="2_g522c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqo17"]
 albedo_texture = ExtResource("1_v65ly")

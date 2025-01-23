@@ -3,9 +3,5 @@ res://character.tscn
 res://wall.tscn
 res://crate.tscn
 res://grate.tscn
-res://loader.gd
-res://grate.gd
 res://level_manager.tscn
-res://level_manager.gd
-res://crate.gd
-res://character.gd
+res://tree.tscn
