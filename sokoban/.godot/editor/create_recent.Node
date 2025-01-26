@@ -1,7 +1,0 @@
-MeshInstance3D
-Node3D
-CollisionShape3D
-Area3D
-RigidBody3D
-StaticBody3D
-CharacterBody3D
