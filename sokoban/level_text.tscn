@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bly1hjncsr8nj"]
+
+[sub_resource type="SystemFont" id="SystemFont_5barg"]
+font_names = PackedStringArray("DejaVu Sans Mono")
+subpixel_positioning = 0
+
+[node name="LevelText" type="RichTextLabel"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_fonts/normal_font = SubResource("SystemFont_5barg")
+text = "Test Text"
+fit_content = true
+autowrap_mode = 0

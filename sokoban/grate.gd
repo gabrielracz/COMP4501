@@ -5,13 +5,11 @@ var overlappedCrate = -1
 func _on_body_entered(body: Node3D):
 	if body is Crate:
 		overlappedCrate = body.get_instance_id()
-		print("entered")
 	pass
 	
 func _on_body_exited(body: Node3D):
 	if body is Crate:
 		overlappedCrate = -1
-		print("exited")
 	pass
 
 # Called when the node enters the scene tree for the first time.

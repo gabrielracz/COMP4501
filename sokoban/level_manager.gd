@@ -1,7 +1,10 @@
 class_name LevelManager extends Node3D
 
+var levelNum = -1
 var grates: Array[Grate]
 var completed: bool = false
+
+signal level_completed
 
 func registerTiles():
 	for child in get_children():
@@ -21,6 +24,9 @@ func _process(delta: float) -> void:
 			activeGrates[g.overlappedCrate] = null
 	
 	if activeGrates.size() == len(grates):
-		completed = true
-		print(name, " COMPLETE")
+		if not completed:
+			completed = true
+			emit_signal("level_completed", levelNum)
+	else:
+		completed = false
 	pass

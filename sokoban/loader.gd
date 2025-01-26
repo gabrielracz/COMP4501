@@ -19,6 +19,7 @@ class LevelPlan:
 @export var crate_scene: PackedScene
 @export var grate_scene: PackedScene
 @export var tree_scene: PackedScene
+#@export var text_scene: PackedScene
 
 var tile_map: Dictionary = {}
 
@@ -77,8 +78,9 @@ func _load_levels():
 func _build_level(levelNum: int):
 	var levelPlan = levelPlans[levelNum]
 	var levelRootNode = level_manager_scene.instantiate()
-	levelRootNode.name = "LevelMan" + str(levelNum)
+	levelRootNode.levelNum = levelNum + 1
 	levelRootNode.visible = false
+	levelRootNode.connect("level_completed", $HUD.on_level_completed)
 	add_child(levelRootNode)
 	for tileDesc in levelPlan.tiles:
 		var tile
@@ -113,16 +115,22 @@ func _build_level(levelNum: int):
 			float(tileDesc[TILE_ROW]) - levelPlan.height/2.0
 		))
 		levelRootNode.add_child(tile)
+
+		
 		
 	# Create floor
 	var floorTile = MeshInstance3D.new()
 	var floorPlane = PlaneMesh.new()
 	floorPlane.size = Vector2(levelPlan.width, levelPlan.height)
-	print(floorPlane.size)
 	floorPlane.center_offset = Vector3(-0.5, -0.5, -0.5)
 	floorTile.mesh = floorPlane
 	levelRootNode.add_child(floorTile)
 	levelRootNode.registerTiles()
+			
+	#var text: RichTextLabel = text_scene.instantiate() as RichTextLabel
+	#text.add_text("Level Complete")
+	#text.set_position(Vector2(0, 0))
+	#levelRootNode.add_child(text)
 	
 	#if levelNum < len(levels):
 		#levels[levelNum] = levelRootNode
@@ -132,6 +140,7 @@ func _build_level(levelNum: int):
 func _build_levels():
 	for levelNum in range(len(levelPlans)):
 		_build_level(levelNum)
+	$HUD.numLevels = len(levelPlans)
 		
 func set_root_activity(root_node: Node, active: bool) -> void:
 	root_node.set_process(active)

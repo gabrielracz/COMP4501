@@ -13,15 +13,9 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node3D):
 	pass
-	#print(body.get_class())
-	#if body is RigidBody3D:
-		#freeze = true
-		#body.freeze = true
 		
 func _on_body_exited(body: Node3D):
 	pass
-	#if body is RigidBody3D:
-		#touched_boxes -= 1
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -45,13 +39,8 @@ func _physics_process(delta: float) -> void:
 			if result["collider"].is_class("RigidBody3D"):
 				result["collider"].freeze = true
 				linear_velocity = Vector3.ZERO
-				#print("frozen")
 				return
-	#else:
-		#return
-	
-	#if freeze: print("unfreeze")
-	#freeze = false
+
 	global_transform = Transform3D(
 		original_transform.basis,  # Keep the original rotation
 		global_transform.origin    # Allow position to change
@@ -67,5 +56,4 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			# Suppress velocity to simulate static behavior
 			state.linear_velocity = Vector3.ZERO
 			state.angular_velocity = Vector3.ZERO
-			#freeze = true
 			return  # Exit after processing one contact to avoid unnecessary checks
